@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace PlayerScripts
 {
     [Serializable]
     public class ViewController

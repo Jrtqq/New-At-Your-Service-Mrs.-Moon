@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace PlayerScripts
 {
-    [RequireComponent(typeof(Rigidbody), typeof(Mover), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(Mover), typeof(SpriteRenderer))]
     public class Player : MonoBehaviour
     {
         [Header("Характеристики")]

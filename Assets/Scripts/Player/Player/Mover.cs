@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace PlayerScripts
 {
     [Serializable]
     public class Mover
@@ -17,7 +17,7 @@ namespace Player
         [SerializeField] private float _dashImpulse;
         [SerializeField] private float _dashDeceleration;
         [Header("Техническое")]
-        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Rigidbody2D _rigidbody;
 
         private float _currentSpeed;
         private Vector3 _currentVelocity = Vector3.zero;
