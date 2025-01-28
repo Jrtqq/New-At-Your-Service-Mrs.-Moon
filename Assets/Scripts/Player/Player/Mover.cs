@@ -57,5 +57,12 @@ namespace PlayerScripts
         {
             _currentDashImpulse = _dashImpulse * direction;
         }
+
+        public void Reset()
+        {
+            _currentVelocity = Vector3.zero;
+            _currentDashImpulse = Vector3.zero;
+            _currentSpeed = _vampireSpeed;
+        }
     }
 }

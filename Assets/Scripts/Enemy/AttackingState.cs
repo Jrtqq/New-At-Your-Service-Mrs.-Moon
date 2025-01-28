@@ -12,6 +12,8 @@ namespace EnemyScripts
         private PlayerSearcher _playerSearcher;
         private IStateController _stateController;
 
+        private Coroutine _coroutine = null;
+
         public AttackingState(Transform transform, PlayerSearcher playerSearcher, IStateController stateController, Attack attack)
         {
             _playerSearcher = playerSearcher;
@@ -24,10 +26,15 @@ namespace EnemyScripts
         public void Enter()
         {
             _playerTransform = _playerSearcher.Player.transform;
-            _playerSearcher.StartCoroutine(Cast());
+
+            _coroutine = _playerSearcher.StartCoroutine(Cast());
         }
 
-        public void Exit() { }
+        public void Exit() 
+        { 
+            if (_coroutine != null)
+                _playerSearcher.StopCoroutine(_coroutine);
+        }
 
         public void FixedUpdate() { }
 
@@ -47,15 +54,8 @@ namespace EnemyScripts
         {
             _attack.Charge();
             yield return new WaitForSeconds(_attack.CastTime - _attack.AttackAlertTime);
-
-            if (Vector3.Distance(_transform.position, _playerTransform.position) <= _attack.MeleeAttackDistance)
-            {
-                _playerSearcher.StartCoroutine(_attack.CastMeleeAttack());
-            }
-            else
-            {
-                _playerSearcher.StartCoroutine(_attack.CastRangeAttack(_playerTransform.position));
-            }
+            
+            _playerSearcher.StartCoroutine(_attack.Cast(_playerTransform.position));
 
             yield return new WaitForSeconds(_attack.AttackAlertTime);
             SwitchState();

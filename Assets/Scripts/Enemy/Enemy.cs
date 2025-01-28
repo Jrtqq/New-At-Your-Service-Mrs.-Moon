@@ -6,7 +6,7 @@ using UnityEngine;
 namespace EnemyScripts
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-    public class Enemy : MonoBehaviour, IStateController
+    public class Enemy : MonoBehaviour, IStateController, IRestartable
     {
         [SerializeField] private Mover _mover;
         [SerializeField] private PlayerSearcher _playerSearcher;
@@ -14,8 +14,12 @@ namespace EnemyScripts
 
         private IState[] _states;
         private IState _currentState;
+
+        private Vector3 _startPosition;
+
         private void Awake()
         {
+            _startPosition = transform.position;
             _mover.Init();
 
             _states = new IState[]{
@@ -45,6 +49,13 @@ namespace EnemyScripts
             _currentState.Exit();
             _currentState = _states.Where(x => x is State).FirstOrDefault();
             _currentState.Enter();
+        }
+
+        public void Restart()
+        {
+            Switch<WalkingState>();
+            _mover.Init();
+            transform.position = _startPosition;
         }
     }
 }

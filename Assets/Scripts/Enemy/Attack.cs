@@ -9,74 +9,79 @@ namespace EnemyScripts
     public class Attack
     {
         [Header("Техническое")]
+        [SerializeField] private Enemy _caster;
         [SerializeField] private LineRenderer _lineRenderer;
-        [SerializeField] private SignalTranslator _signalTranslator;
         [SerializeField] private Transform _attackPoint;
         [SerializeField] private LayerMask _linecastMask;
 
         [Header("Характеристики")]
         [SerializeField] private float _castTime = 1;
         [SerializeField] private float _attackAlertTime = 0.25f;
-        [SerializeField] private float _meleeAttackDistance = 3;
-        [SerializeField] private float _fadeTime = 1.5f;
         [SerializeField] private float _maxLineLength = 5;
+
+        private Coroutine _fader = null;
 
         public float CastTime => _castTime;
         public float AttackAlertTime => _attackAlertTime;
-        public float MeleeAttackDistance => _meleeAttackDistance;
 
         [Header("Функциональные поля (для оптимизации)")]
-        private float _remainingLenght = 0;
+        private float _remainingLength = 0;
 
-        public IEnumerator CastRangeAttack(Vector3 target)
+        public void Charge()
         {
-            _signalTranslator.Warning();
+            //партиклы
+        }
 
+        public IEnumerator Cast(Vector3 target)
+        {
             yield return new WaitForSeconds(AttackAlertTime);
+
+            if (_fader != null)
+            {
+                _caster.StopCoroutine(_fader); 
+            }
+
+            ResetLine();
 
             Vector3[] positions = GetPositions(target);
             _lineRenderer.positionCount = positions.Length;
             _lineRenderer.SetPositions(positions);
-            //_lineRenderer.Simplify(0.75f);
-        }
 
-        public IEnumerator CastMeleeAttack()
-        {
-            _signalTranslator.Warning();
-
-            yield return new WaitForSeconds(AttackAlertTime);
-        }
-
-        public void Charge()
-        {
-            Debug.Log("партиклы набора силы");
+            _caster.StartCoroutine(FadeAttack());
         }
 
         private Vector3[] GetPositions(Vector3 target)
         {
             RaycastHit2D hit;
             List<Vector3> positions = new();
-            _remainingLenght = _maxLineLength;
+            _remainingLength = _maxLineLength;
 
             target -= _attackPoint.position;
             Vector3 origin = _attackPoint.position;
 
             positions.Add(origin);
 
-            while (_remainingLenght > 0)
+            while (_remainingLength > 0)
             {
-                hit = Physics2D.Raycast(origin, target, _remainingLenght, _linecastMask);
+                hit = Physics2D.Raycast(origin, target, _remainingLength, _linecastMask);
 
                 if (hit.collider == null)
                 {
-                    positions.Add(origin + (target.normalized * _remainingLenght));
+                    positions.Add(origin + (target.normalized * _remainingLength));
                     break;
+                }
+                else if (hit.collider.CompareTag("Player"))
+                {
+                    positions.Add(hit.point);
+                    _remainingLength = 0;
+
+                    hit.collider.GetComponent<PlayerScripts.Player>().Die();
                 }
                 else
                 {
                     positions.Add(hit.point);
 
-                    _remainingLenght -= hit.distance;
+                    _remainingLength -= hit.distance;
                     origin = hit.point;
                     target = Vector3.Reflect(target, hit.normal);
                     origin += new Vector3(hit.normal.x * 0.02f, hit.normal.y * 0.02f, 0);
@@ -84,6 +89,24 @@ namespace EnemyScripts
             }
 
             return positions.ToArray();
+        }
+
+        private IEnumerator FadeAttack()
+        {
+            while (_lineRenderer.startColor.a > 0)
+            {
+                _lineRenderer.startColor -= new Color(0, 0, 0, _castTime * Time.deltaTime);
+                _lineRenderer.endColor -= new Color(0, 0, 0, _castTime * Time.deltaTime);
+
+                yield return null;
+            }
+        }
+
+        private void ResetLine()
+        {
+            _lineRenderer.positionCount = 0;
+            _lineRenderer.startColor += new Color(0, 0, 0, 1);
+            _lineRenderer.endColor += new Color(0, 0, 0, 1);
         }
     }
 }

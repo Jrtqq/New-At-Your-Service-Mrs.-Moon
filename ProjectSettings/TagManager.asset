@@ -15,9 +15,9 @@ TagManager:
   - UI
   - Ignore waypoints
   - Walls
-  - 
-  - 
-  - 
+  - Player
+  - Mirror
+  - Enemy
   - 
   - 
   - 

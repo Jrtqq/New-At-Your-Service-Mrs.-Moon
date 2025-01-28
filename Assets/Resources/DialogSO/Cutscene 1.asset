@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd196a587953ac4eb156fface72cf5f, type: 3}
+  m_Name: Cutscene 1
+  m_EditorClassIdentifier: 
+  Names:
+  - VAMP
+  - VAMP
+  - MOON
+  Text:
+  - Fhew, I made it. Somehow. It's heartbreaking to see our glorious people hiding
+    there from filthy, weak humans.
+  - Now I have the chance to fix that and bring justice!
+  - Don't be too pretentious, boy. Though, you did well today, that's true. I hope
+    it's only the start...
+  IsIntroNext: 0

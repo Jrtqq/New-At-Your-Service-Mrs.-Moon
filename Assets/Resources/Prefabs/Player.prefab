@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3695345704436578666}
   - component: {fileID: 4212625437584102757}
   - component: {fileID: 3695345704436578665}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,6 +280,6 @@ MonoBehaviour:
     _animator: {fileID: 3695345704436578666}
   _sound:
     _audioSource: {fileID: 4212625437584102757}
-    _dash: {fileID: 0}
-    _transform: {fileID: 0}
-    _death: {fileID: 0}
+    _dash: {fileID: 8300000, guid: 2803a0418d4b1a143944eef748baabbe, type: 3}
+    _transform: {fileID: 8300000, guid: 8e230a80e92fa1d40b459433c5d45255, type: 3}
+    _death: {fileID: 8300000, guid: 8445b431c82d31c469fa4153e3ec58fb, type: 3}

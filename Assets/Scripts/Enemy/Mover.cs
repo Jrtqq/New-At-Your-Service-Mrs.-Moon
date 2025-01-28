@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+using Pathfinding;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace EnemyScripts
 {
@@ -12,7 +10,7 @@ namespace EnemyScripts
     public class Mover
     {
         [SerializeField] private Transform[] _waypointsArray;
-        [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private AIPath _pathfinder;
         [SerializeField] private Transform _transform;
         [SerializeField] private float _speed;
 
@@ -36,7 +34,7 @@ namespace EnemyScripts
 
         public void Move(Vector3 target)
         {
-            _rigidbody.velocity = Vector3.ClampMagnitude(target - _transform.position, 1) * _speed * Time.deltaTime;
+            //_rigidbody.velocity = Vector3.ClampMagnitude(target - _transform.position, 1) * _speed * Time.deltaTime;
         }
 
         public IEnumerator OnPointReaching(Transform point)

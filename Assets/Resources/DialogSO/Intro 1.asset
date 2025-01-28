@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd196a587953ac4eb156fface72cf5f, type: 3}
+  m_Name: Intro 1
+  m_EditorClassIdentifier: 
+  Names:
+  - ???
+  - ???
+  - ???
+  - ???
+  - ???
+  - ???
+  - ???
+  Text:
+  - Decades ago, days and nights were locked in a cycle. Humans were blooming at
+    daytime, while vampires lived their lives at night.
+  - Humans and vampires never could really understand eachother. Nonetheless, they
+    learned to share the same land.
+  - But all good times are coming to an end. There were more and more people. Daytime
+    was already not enough. They learned shady paths of elder magic and declared
+    war to the Sun itself.
+  - "They won, and in celebration of their victory they had poured Sun's light in
+    7 shards. From now on, Empire keep them under a strong guard for everybody to
+    know - it\u2019s impossible to bring Endless day down."
+  - At this horrific night Empire of Eternal Light was born, and Endless day made
+    parody to a sunlight never leave the sky.
+  - Vamp, young but brave vampire, sees a strange dream, where the Moon herself makes
+    him an offer -  she enhances his powers and Vamp helps to bring the Endless day
+    down for Moon to shine again and forever.
+  - This is where Vamp's journey to the Endless Night and resurrection of vampires'
+    glory starts...
+  IsIntroNext: 0

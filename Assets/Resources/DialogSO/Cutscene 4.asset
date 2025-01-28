@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd196a587953ac4eb156fface72cf5f, type: 3}
+  m_Name: Cutscene 4
+  m_EditorClassIdentifier: 
+  Names:
+  - VAMP
+  - GOTHIE
+  - VAMP
+  - VAMP
+  - GOTHIE
+  - ' '
+  - ???
+  - AGENT LIGHTBULB
+  Text:
+  - "...and so, now we have chance to rise again. Isn\u2019t it wonderful?"
+  - "It truly is! You\u2019re so brave, Vamp. I\u2019m proud of you. So, what will
+    you do next?"
+  - "Moon says that tomorrow fifth shard must be broken. I hope it won\u2019t be
+    that hard. I just... can\u2019t die and not complete my mission."
+  - Vampires need me. And you... kinda help me to not give up.
+  - "You\u2019re a flutterer, Vamp!"
+  - ...
+  - "Connection orb is working. It\u2019s agent Lightbulb. I got the information.
+    Coming back from the vampires\u2019 shelter."
+  - Ouch! That was a rock. This bloody place is so damn dark...
+  IsIntroNext: 1

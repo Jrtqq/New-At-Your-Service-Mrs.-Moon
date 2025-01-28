@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd196a587953ac4eb156fface72cf5f, type: 3}
+  m_Name: Intro 5
+  m_EditorClassIdentifier: 
+  Names:
+  - MOON
+  - MOON
+  - MOON
+  - MOON
+  - MOON
+  - MOON
+  - MOON
+  - MOON
+  Text:
+  - Help us, void of cosmos...
+  - Teethy boy, you've made a huge mistake with that... girl you're constantly blabbing
+    about.
+  - You told here too much and someone have heard you two!
+  - These human bastards have put a barrier on me! I can't help you tonight as much
+    as I always do.
+  - Gladly, at least we have some good news.
+  - You must break the shard, but you're not required to kill everybody. Just ones
+    you're able to reach.
+  - Take it as a sorry gift from me.
+  - They are prepared for your visit, be cautious.
+  IsIntroNext: 1

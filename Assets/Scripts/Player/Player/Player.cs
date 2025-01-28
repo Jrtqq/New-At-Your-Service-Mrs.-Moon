@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Mover), typeof(SpriteRenderer))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IRestartable
     {
         [Header("Характеристики")]
         [SerializeField] private float _dashCooldown;
@@ -20,9 +21,12 @@ namespace PlayerScripts
         private PlayerInput _controls;
 
         private bool _canDash = true;
+        private bool _isBat = false;
         private bool _canTransform = true;
 
-        private bool _isBat = false;
+        private Vector3 _startPosition;
+
+        public event Action Dead;
 
         private Vector2 Direction => _controls.Main.Move.ReadValue<Vector2>();
 
@@ -34,11 +38,8 @@ namespace PlayerScripts
             _sound.Init();
 
             EnableInput();
-        }
 
-        private void FixedUpdate()
-        {
-            _mover.FixedUpdate(Direction);
+            _startPosition = transform.position;
         }
 
         private void OnEnable()
@@ -61,8 +62,22 @@ namespace PlayerScripts
             _controls.Main.Transform.performed -= OnTransform;
         }
 
+        private void FixedUpdate()
+        {
+            _mover.FixedUpdate(Direction);
+        }
+
         public void EnableInput() => _controls.Enable();
-        public void Disable() => _controls.Disable();
+        public void DisableInput() => _controls.Disable();
+
+        public void Die()
+        {
+            DisableInput();
+            _view.OnDeath();
+            _sound.OnDeath();
+
+            Dead?.Invoke();
+        }
 
         private void OnMoveStart(InputAction.CallbackContext context)
         {
@@ -119,6 +134,16 @@ namespace PlayerScripts
             _canDash = false;
             yield return new WaitForSeconds(_dashCooldown);
             _canDash = true;
+        }
+
+        public void Restart()
+        {
+            transform.position = _startPosition;
+            EnableInput();
+
+            _mover.Reset();
+            _view.Reset();
+            _sound.Reset();
         }
     }
 }
