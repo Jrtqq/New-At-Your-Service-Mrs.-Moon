@@ -1,57 +1,74 @@
+using PlayerScripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Restarter : MonoBehaviour
 {
-    [SerializeField] private float _gameOverScreenDiration; //опасно ставить значение больше 0.75, потому что враги почему то будут атаковать после ресета и мне лень это фиксить:(
-    [SerializeField] private Object[] _restartableObjects;
+    public static int CurrentStage { get; private set; } = 0;
 
-    private List<IRestartable> _objects = new();
+    [SerializeField] private GameObject[] _stages;
+    [SerializeField] private StageAnimation _animator;
+    [SerializeField] private Player _player;
+    [SerializeField] private float _restartdelay = 0.5f;
+    [SerializeField] private LevelCompleter _completer;
 
-    private PlayerScripts.Player _restarter;
-
-    private void OnValidate()
-    {
-        if (_gameOverScreenDiration < 0.5f) _gameOverScreenDiration = 0.5f;
-    }
+    public Action Loaded;
 
     private void Awake()
     {
-        for (int i = 0; i < _restartableObjects.Length; i++)
-        {
-            _objects.Add(_restartableObjects[i].GetComponent<IRestartable>());
-        }
-
-        _restarter = FindObjectOfType<PlayerScripts.Player>();
+        LoadStage();
     }
 
     private void OnEnable()
     {
-        _restarter.Dead += Restart;
+        _player.Dead += StartRestart;
     }
 
     private void OnDisable()
     {
-        _restarter.Dead -= Restart;
+        _player.Dead -= StartRestart;
     }
 
-    public void Restart() => StartCoroutine(ShowGameOver());
-
-    private IEnumerator ShowGameOver()
+    public static void ResetStageCounter()
     {
-        //эндскрин
-        yield return new WaitForSeconds(_gameOverScreenDiration);
-
-        ResetObjects();
+        CurrentStage = 0;
     }
 
-    private void ResetObjects()
+    public void GoToNextStage()
     {
-        for (int i = 0; i < _objects.Count; i++)
+        if (CurrentStage < _stages.Length - 1)
         {
-            _objects[i].Restart();
+            StartCoroutine(
+                _animator.FadeIn(_stages[CurrentStage].transform, () => LoadStage()));
+
+            CurrentStage++;
         }
+        else
+        {
+            _completer.gameObject.SetActive(true);
+        }
+    }
+
+    private void LoadStage()
+    {
+        _player.transform.position = Vector3.zero;
+        StartCoroutine(_animator.FadeOut(_stages[CurrentStage].transform, () => Loaded?.Invoke()));
+    }
+
+    private void StartRestart()
+    {
+        StartCoroutine(Restart());
+    }
+
+    private IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(_restartdelay);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

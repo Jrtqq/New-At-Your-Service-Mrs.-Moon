@@ -49,11 +49,5 @@ namespace PlayerScripts
         {
             _audioSource.PlayOneShot(_death);
         }
-
-        public void Reset()
-        {
-            _audioSource.loop = false;
-            _audioSource.Stop();
-        }
     }
 }

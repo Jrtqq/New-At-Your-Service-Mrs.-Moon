@@ -1,18 +1,19 @@
+using EnemyScripts;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Mover), typeof(SpriteRenderer))]
-    public class Player : MonoBehaviour, IRestartable
+    public class Player : MonoBehaviour
     {
         [Header("Характеристики")]
         [SerializeField] private float _dashCooldown;
         [SerializeField] private float _transformCooldown;
+        [SerializeField] private bool _canTransform = true;
         [Header("Техническое")]
         [SerializeField] private Mover _mover;
         [SerializeField] private ViewController _view;
@@ -21,12 +22,12 @@ namespace PlayerScripts
         private PlayerInput _controls;
 
         private bool _canDash = true;
-        private bool _isBat = false;
-        private bool _canTransform = true;
-
-        private Vector3 _startPosition;
+        private bool _isDead = false;
+        public bool IsBat { get; private set; } = false;
 
         public event Action Dead;
+
+        public float VampireSpeed => _mover.VampireSpeed;
 
         private Vector2 Direction => _controls.Main.Move.ReadValue<Vector2>();
 
@@ -38,8 +39,6 @@ namespace PlayerScripts
             _sound.Init();
 
             EnableInput();
-
-            _startPosition = transform.position;
         }
 
         private void OnEnable()
@@ -67,16 +66,32 @@ namespace PlayerScripts
             _mover.FixedUpdate(Direction);
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.TryGetComponent(out Enemy enemy))
+            {
+                if (IsBat == false)
+                {
+                    enemy.Die();
+                    _mover.SlowDown();
+                }
+            }
+        }
+
         public void EnableInput() => _controls.Enable();
         public void DisableInput() => _controls.Disable();
 
         public void Die()
         {
-            DisableInput();
-            _view.OnDeath();
-            _sound.OnDeath();
+            if (_isDead == false)
+            {
+                DisableInput();
+                _view.OnDeath();
+                _sound.OnDeath();
+                _isDead = true;
 
-            Dead?.Invoke();
+                Dead?.Invoke();
+            }
         }
 
         private void OnMoveStart(InputAction.CallbackContext context)
@@ -100,10 +115,10 @@ namespace PlayerScripts
         {
             if (_canTransform)
             {
-                _isBat = !_isBat;
+                IsBat = !IsBat;
 
-                _mover.Transform(_isBat);
-                _view.OnTransform(_isBat);
+                _mover.Transform(IsBat);
+                _view.OnTransform(IsBat);
                 _sound.OnTransform();
 
                 StartCoroutine(WaitForTransformCooldown());
@@ -112,7 +127,7 @@ namespace PlayerScripts
 
         private void OnDash(InputAction.CallbackContext context)
         {
-            if (_canDash && _isBat == false)
+            if (_canDash && IsBat == false)
             {
                 _mover.StartDash(Direction);
                 _view.OnDash();
@@ -134,16 +149,6 @@ namespace PlayerScripts
             _canDash = false;
             yield return new WaitForSeconds(_dashCooldown);
             _canDash = true;
-        }
-
-        public void Restart()
-        {
-            transform.position = _startPosition;
-            EnableInput();
-
-            _mover.Reset();
-            _view.Reset();
-            _sound.Reset();
         }
     }
 }

@@ -58,14 +58,5 @@ namespace PlayerScripts
         {
             _animator.SetTrigger(DieAnimatorTrigger);
         }
-
-        public void Reset()
-        {
-            _animator.SetTrigger(ResetAnimatorTrigger);
-
-            _animator.SetBool(IsWalkingAnimatorBool, false);
-            _animator.SetBool(IsBatAnimatorBool, false);
-            _spriteRenderer.flipX = false;
-        }
     }
 }

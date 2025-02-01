@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 5339206647549290410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3533631746808488653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1056077472883413938}
+  m_Layer: 0
+  m_Name: Last player position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1056077472883413938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533631746808488653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5339206647549290410}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5339206647549290415
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,6 +100,7 @@ Transform:
   m_Children:
   - {fileID: 1323961590457843860}
   - {fileID: 216228852121092981}
+  - {fileID: 1056077472883413938}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -233,8 +265,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.8078432, g: 0.98823535, b: 1, a: 1}
+      key1: {r: 0.8078432, g: 0.98823535, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -280,12 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c69fc6871e2ada4b97a254fc3f2d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mover:
-    _waypointsArray:
-    - {fileID: 0}
-    _rigidbody: {fileID: 8468961711248762366}
-    _transform: {fileID: 5339206647549290410}
-    _speed: 50
+  _deadPrefab: {fileID: 4984678604091967354, guid: 976d9d573639ff04682f90d0f97bacb8, type: 3}
+  _waypoints: []
+  _mover: {fileID: 4035488346060535457}
   _playerSearcher: {fileID: 423643924791159833}
   _attack:
     _caster: {fileID: 6854249131847748239}
@@ -293,7 +322,7 @@ MonoBehaviour:
     _attackPoint: {fileID: 1323961590457843860}
     _linecastMask:
       serializedVersion: 2
-      m_Bits: 384
+      m_Bits: 896
     _castTime: 1
     _attackAlertTime: 0.25
     _maxLineLength: 10
@@ -353,18 +382,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 5
   radius: 0.5
-  height: 2
+  height: 0.48
   canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
+  maxSpeed: 2
+  gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
   centerOffsetCompatibility: NaN
   repathRateCompatibility: NaN
   canSearchCompability: 0
-  orientation: 0
-  enableRotation: 1
+  orientation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -374,12 +403,12 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
+  slowdownDistance: 0.3
+  pickNextWaypointDist: 1
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
+  whenCloseToDestination: 1
   constrainInsideGraph: 0
 --- !u!1 &8403485250957343511
 GameObject:
@@ -446,4 +475,4 @@ MonoBehaviour:
   _playerCastMask:
     serializedVersion: 2
     m_Bits: 896
-  _playerPosition: {fileID: 0}
+  <LastPlayerPosition>k__BackingField: {fileID: 1056077472883413938}

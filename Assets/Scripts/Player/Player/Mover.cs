@@ -23,6 +23,8 @@ namespace PlayerScripts
         private Vector3 _currentVelocity = Vector3.zero;
         private Vector3 _currentDashImpulse = Vector3.zero;
 
+        public float VampireSpeed => _vampireSpeed;
+
         public void Init()
         {
             if (_rigidbody == null)
@@ -34,7 +36,7 @@ namespace PlayerScripts
         public void FixedUpdate(Vector3 direction)
         {
             _currentVelocity = Vector3.MoveTowards(
-                Vector3.ClampMagnitude(_currentVelocity + _accelerationFactor * Time.fixedDeltaTime * direction, _currentSpeed),
+                Vector3.ClampMagnitude(_currentVelocity + direction* _accelerationFactor * Time.fixedDeltaTime, _currentSpeed),
                 Vector3.zero,
                 _decelerationFactor * Time.fixedDeltaTime);
 
@@ -58,11 +60,9 @@ namespace PlayerScripts
             _currentDashImpulse = _dashImpulse * direction;
         }
 
-        public void Reset()
+        public void SlowDown()
         {
             _currentVelocity = Vector3.zero;
-            _currentDashImpulse = Vector3.zero;
-            _currentSpeed = _vampireSpeed;
         }
     }
 }

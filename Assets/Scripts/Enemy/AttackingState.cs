@@ -7,20 +7,17 @@ namespace EnemyScripts
     public class AttackingState : IState
     {
         private Attack _attack;
-        private Transform _transform;
         private Transform _playerTransform;
         private PlayerSearcher _playerSearcher;
         private IStateController _stateController;
 
         private Coroutine _coroutine = null;
 
-        public AttackingState(Transform transform, PlayerSearcher playerSearcher, IStateController stateController, Attack attack)
+        public AttackingState(PlayerSearcher playerSearcher, IStateController stateController, Attack attack)
         {
             _playerSearcher = playerSearcher;
             _stateController = stateController;
             _attack = attack;
-
-            _transform = transform;
         }
 
         public void Enter()

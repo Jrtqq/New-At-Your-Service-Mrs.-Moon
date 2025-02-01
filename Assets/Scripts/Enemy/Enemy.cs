@@ -1,14 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
+using Pathfinding;
 using System.Linq;
 using UnityEngine;
+using PlayerScripts;
+using System;
 
 namespace EnemyScripts
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-    public class Enemy : MonoBehaviour, IStateController, IRestartable
+    [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof (AIPath))]
+    public class Enemy : MonoBehaviour, IStateController
     {
-        [SerializeField] private Mover _mover;
+        [SerializeField] private GameObject _deadPrefab;
+        [SerializeField] private Transform[] _waypoints;
+        [SerializeField] private AIDestinationSetter _mover;
         [SerializeField] private PlayerSearcher _playerSearcher;
         [SerializeField] private Attack _attack;
 
@@ -17,16 +21,20 @@ namespace EnemyScripts
 
         private Vector3 _startPosition;
 
+        private Player _player;
+
+        public Action<Transform> Died;
+        private bool _isDead = false;
+
         private void Awake()
         {
             _startPosition = transform.position;
-            _mover.Init();
 
             _states = new IState[]{
-                new WalkingState(_mover, _playerSearcher, this),
+                new WalkingState(transform, _mover, _playerSearcher, _waypoints, this),
                 new ChasingState(_mover, transform, _playerSearcher, this),
                 new SearchingState(_mover, transform, _playerSearcher, this),
-                new AttackingState(transform, _playerSearcher, this, _attack)
+                new AttackingState(_playerSearcher, this, _attack)
             };
 
             _currentState = _states[0];
@@ -38,12 +46,6 @@ namespace EnemyScripts
             _currentState.FixedUpdate();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Waypoint"))
-                StartCoroutine(_mover.OnPointReaching(collision.transform));
-        }
-
         public void Switch<State>() where State : IState
         {
             _currentState.Exit();
@@ -51,11 +53,13 @@ namespace EnemyScripts
             _currentState.Enter();
         }
 
-        public void Restart()
+        public void Die()
         {
-            Switch<WalkingState>();
-            _mover.Init();
-            transform.position = _startPosition;
+            if (_isDead == false)
+            {
+                Died?.Invoke(Instantiate(_deadPrefab, transform.position, Quaternion.identity).transform);
+                Destroy(gameObject);
+            }
         }
     }
 }

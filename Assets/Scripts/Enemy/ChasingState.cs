@@ -1,3 +1,4 @@
+using Pathfinding;
 using PlayerScripts;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,45 +8,41 @@ namespace EnemyScripts
 {
     public class ChasingState : IState
     {
-        private const float AttackDistance = 5;
+        private const float AttackDistance = 10;
 
-        private Mover _mover;
-        private Transform _transform;
-        private Transform _playerTransform;
+        private AIDestinationSetter _mover;
+        private Transform _position;
         private PlayerSearcher _playerSearcher;
         private IStateController _stateController;
 
-        public ChasingState(Mover mover, Transform transform, PlayerSearcher playerSearcher, IStateController stateController)
+        public ChasingState(AIDestinationSetter mover, Transform enemy, PlayerSearcher playerSearcher, IStateController stateController)
         {
             _mover = mover;
             _playerSearcher = playerSearcher;
             _stateController = stateController;
 
-            _transform = transform;
+            _position = enemy;
         }
 
         public void Enter()
         {
             _playerSearcher.Lost += SearchPlayer;
 
-            _playerTransform = _playerSearcher.Player.transform;
+            _mover.target = _playerSearcher.Player.transform;
         }
 
         public void Exit()
         {
             _playerSearcher.Lost -= SearchPlayer;
+
+            _mover.target = _position;
         }
 
         public void FixedUpdate()
         {
-            if (Vector3.Distance(_transform.position, _playerTransform.position) < AttackDistance)
+            if (Vector3.Distance(_position.position, _mover.target.position) < AttackDistance)
             {
-                _mover.Move(_transform.position);
                 _stateController.Switch<AttackingState>();
-            }
-            else
-            {
-                _mover.Move(_playerTransform.position);
             }
         }
 

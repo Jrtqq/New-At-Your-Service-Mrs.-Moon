@@ -46,6 +46,7 @@ namespace EnemyScripts
             Vector3[] positions = GetPositions(target);
             _lineRenderer.positionCount = positions.Length;
             _lineRenderer.SetPositions(positions);
+            //_lineRenderer.Simplify(0.1f);
 
             _caster.StartCoroutine(FadeAttack());
         }
@@ -68,6 +69,8 @@ namespace EnemyScripts
                 if (hit.collider == null)
                 {
                     positions.Add(origin + (target.normalized * _remainingLength));
+                    _remainingLength = 0;
+
                     break;
                 }
                 else if (hit.collider.CompareTag("Player"))
@@ -77,7 +80,7 @@ namespace EnemyScripts
 
                     hit.collider.GetComponent<PlayerScripts.Player>().Die();
                 }
-                else
+                else if (hit.collider.CompareTag("Mirror"))
                 {
                     positions.Add(hit.point);
 
@@ -85,6 +88,11 @@ namespace EnemyScripts
                     origin = hit.point;
                     target = Vector3.Reflect(target, hit.normal);
                     origin += new Vector3(hit.normal.x * 0.02f, hit.normal.y * 0.02f, 0);
+                }
+                else
+                {
+                    positions.Add(hit.point);
+                    _remainingLength = 0;
                 }
             }
 

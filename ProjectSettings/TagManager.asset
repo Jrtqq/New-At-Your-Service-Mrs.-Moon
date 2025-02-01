@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Waypoint
   - PlayerSearcher
+  - Mirror
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Player
   - Mirror
   - Enemy
-  - 
+  - Hole
   - 
   - 
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: player
+    uniqueID: 1602158141
     locked: 0

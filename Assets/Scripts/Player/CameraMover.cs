@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMover : MonoBehaviour
 {
     [SerializeField] private Transform _player;
-    [SerializeField] private float _interpolationFactor = 0.7f;
+    [SerializeField] private float _interpolationFactor = 5;
 
     private Transform _transform;
     private Vector3 _nextFramePosition;
