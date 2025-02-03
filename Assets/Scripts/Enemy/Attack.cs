@@ -9,7 +9,7 @@ namespace EnemyScripts
     public class Attack
     {
         [Header("Техническое")]
-        [SerializeField] private Enemy _caster;
+        [SerializeField] private MonoBehaviour _caster;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private Transform _attackPoint;
         [SerializeField] private LayerMask _linecastMask;

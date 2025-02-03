@@ -1,20 +1,14 @@
-using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.UI.Image;
+using UnityEngine.EventSystems;
 
 public class Test : MonoBehaviour
 {
-    private Action _action;
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    Debug.Log("clicking");
+    //}
 
-    private void Awake()
-    {
-        _action -= asdf;
-
-        _action?.Invoke();
-    }
-
-    private void asdf() { Debug.Log("asdf"); }
+    //private void OnMouseDown()
+    //{
+    //}
 }

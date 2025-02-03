@@ -5,15 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelButtons : MonoBehaviour
 {
-    private const int IntroScene = 8;
+    [SerializeField] private LevelMenuFade _fade;
+
+    private const int IntroScene = 9;
 
     public void GoToLevel(int index)
     {
         Progress.Instance.LastLevel = index;
 
         if (index == 0 || index == 4 || index == 5 || index == 6)
-            SceneManager.LoadScene(IntroScene);
+            _fade.NextSceneIndex = IntroScene;
         else
-            SceneManager.LoadScene(index);
+            _fade.NextSceneIndex = index + 1;
+
+        _fade.IsFirstLevel = index == 0;
+        _fade.gameObject.SetActive(true);
     }
 }

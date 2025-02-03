@@ -26,7 +26,7 @@ public class IntroFader : MonoBehaviour
                 yield return null;
             }
 
-            SceneManager.LoadScene(Progress.Instance.LastLevel);
+            SceneManager.LoadScene(Progress.Instance.LastLevel + 1);
         }
     }
 
@@ -36,6 +36,6 @@ public class IntroFader : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(7);
     }
 }

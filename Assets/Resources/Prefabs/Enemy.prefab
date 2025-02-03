@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2866094644610901078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.269, y: 0.281, z: 0}
+  m_LocalPosition: {x: 0.129, y: 0.175, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -323,7 +323,7 @@ MonoBehaviour:
     _linecastMask:
       serializedVersion: 2
       m_Bits: 896
-    _castTime: 1
+    _castTime: 0.85
     _attackAlertTime: 0.25
     _maxLineLength: 10
 --- !u!114 &5509044570551291866

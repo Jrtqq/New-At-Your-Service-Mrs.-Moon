@@ -75,10 +75,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1602158141
-  m_SortingLayer: 1
-  m_SortingOrder: 2
-  m_Sprite: {fileID: -1240584920, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -1027860622, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,7 +113,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.59375, y: 0.78125}
+  m_Size: {x: 0.55, y: 0.75}
   m_EdgeRadius: 0
 --- !u!50 &3833325329701693747
 Rigidbody2D:
@@ -267,6 +267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dashCooldown: 1.5
   _transformCooldown: 0.5
+  _canTransform: 1
+  _collider: {fileID: 1793049668970404684}
   _mover:
     _vampireSpeed: 5
     _batSpeed: 7.5
@@ -283,3 +285,4 @@ MonoBehaviour:
     _dash: {fileID: 8300000, guid: 2803a0418d4b1a143944eef748baabbe, type: 3}
     _transform: {fileID: 8300000, guid: 8e230a80e92fa1d40b459433c5d45255, type: 3}
     _death: {fileID: 8300000, guid: 8445b431c82d31c469fa4153e3ec58fb, type: 3}
+  IsDead: 0

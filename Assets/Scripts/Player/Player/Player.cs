@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace PlayerScripts
 {
@@ -15,6 +14,7 @@ namespace PlayerScripts
         [SerializeField] private float _transformCooldown;
         [SerializeField] private bool _canTransform = true;
         [Header("Техническое")]
+        [SerializeField] private BoxCollider2D _collider;
         [SerializeField] private Mover _mover;
         [SerializeField] private ViewController _view;
         [SerializeField] private SoundController _sound;
@@ -22,7 +22,7 @@ namespace PlayerScripts
         private PlayerInput _controls;
 
         private bool _canDash = true;
-        private bool _isDead = false;
+        [HideInInspector] public bool IsDead = false;
         public bool IsBat { get; private set; } = false;
 
         public event Action Dead;
@@ -75,20 +75,25 @@ namespace PlayerScripts
                     enemy.Die();
                     _mover.SlowDown();
                 }
+                else
+                {
+                    Die();
+                }
             }
         }
 
         public void EnableInput() => _controls.Enable();
         public void DisableInput() => _controls.Disable();
+        public void SlowDown() => _mover.SlowDown();
 
         public void Die()
         {
-            if (_isDead == false)
+            if (IsDead == false)
             {
                 DisableInput();
                 _view.OnDeath();
                 _sound.OnDeath();
-                _isDead = true;
+                IsDead = true;
 
                 Dead?.Invoke();
             }
@@ -120,6 +125,11 @@ namespace PlayerScripts
                 _mover.Transform(IsBat);
                 _view.OnTransform(IsBat);
                 _sound.OnTransform();
+
+                if (IsBat)
+                    _collider.size = new Vector2(_collider.size.x, 0.25f);
+                else
+                    _collider.size = new Vector2(_collider.size.x, 0.75f);
 
                 StartCoroutine(WaitForTransformCooldown());
             }

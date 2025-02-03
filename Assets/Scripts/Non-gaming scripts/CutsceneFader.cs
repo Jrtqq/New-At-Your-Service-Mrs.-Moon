@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class CutsceneFader : MonoBehaviour
 {
-    private const int IntroSceneIndex = 8;
+    private const int IntroSceneIndex = 9;
 
     [SerializeField] private TMP_Text _textboxAfterFading;
     [SerializeField] private float _textPrintingSpeed = 0.1f;
@@ -64,6 +64,6 @@ public class CutsceneFader : MonoBehaviour
         if (Progress.Instance.Cutscenes[Progress.Instance.LastLevel - 1].IsIntroNext)
             SceneManager.LoadScene(IntroSceneIndex);
         else
-            SceneManager.LoadScene(Progress.Instance.LastLevel);
+            SceneManager.LoadScene(Progress.Instance.LastLevel + 1);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelCompleter : MonoBehaviour
 {
-    private const int CutsceneSceneIndex = 7;
+    private const int CutsceneSceneIndex = 8;
     private bool _isActive = true;
 
     private void OnCollisionEnter2D(Collision2D collision)
