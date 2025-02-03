@@ -16,8 +16,8 @@ namespace EnemyScripts
         private Coroutine _coroutine = null;
 
         private Transform _currentPoint = null;
-        private float _endReachedDistance = 0.4f;
-        private float _pointChangeDelay = 1f;
+        private float _endReachedDistance = 0.1f;
+        private float _pointChangeDelay = 0.5f;
         private bool _isStatic = false;
         private bool _isCurrentlyActive = true;
 

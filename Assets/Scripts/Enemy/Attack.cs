@@ -18,6 +18,7 @@ namespace EnemyScripts
         [SerializeField] private float _castTime = 1;
         [SerializeField] private float _attackAlertTime = 0.25f;
         [SerializeField] private float _maxLineLength = 5;
+        [SerializeField] private float _fadeSpeed = 2f;
 
         private Coroutine _fader = null;
 
@@ -103,8 +104,8 @@ namespace EnemyScripts
         {
             while (_lineRenderer.startColor.a > 0)
             {
-                _lineRenderer.startColor -= new Color(0, 0, 0, _castTime * Time.deltaTime);
-                _lineRenderer.endColor -= new Color(0, 0, 0, _castTime * Time.deltaTime);
+                _lineRenderer.startColor -= new Color(0, 0, 0, _fadeSpeed * Time.deltaTime);
+                _lineRenderer.endColor -= new Color(0, 0, 0, _fadeSpeed * Time.deltaTime);
 
                 yield return null;
             }

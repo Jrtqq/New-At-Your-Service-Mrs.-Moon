@@ -323,9 +323,10 @@ MonoBehaviour:
     _linecastMask:
       serializedVersion: 2
       m_Bits: 896
-    _castTime: 0.85
+    _castTime: 0.75
     _attackAlertTime: 0.25
     _maxLineLength: 10
+    _fadeSpeed: 2
 --- !u!114 &5509044570551291866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +385,7 @@ MonoBehaviour:
   radius: 0.5
   height: 0.48
   canMove: 1
-  maxSpeed: 2
+  maxSpeed: 2.3
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2

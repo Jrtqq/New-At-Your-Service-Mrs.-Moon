@@ -423,7 +423,7 @@ MonoBehaviour:
   radius: 0.5
   height: 0.48
   canMove: 1
-  maxSpeed: 2
+  maxSpeed: 2.3
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -462,6 +462,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deadPrefab: {fileID: 4984678604091967354, guid: 976d9d573639ff04682f90d0f97bacb8, type: 3}
+  _playerCastMask:
+    serializedVersion: 2
+    m_Bits: 896
+  _attackRadius: 4
   _attack:
     _caster: {fileID: 6580313803550473018}
     _lineRenderer: {fileID: 7541108545130180949}
@@ -469,10 +473,7 @@ MonoBehaviour:
     _linecastMask:
       serializedVersion: 2
       m_Bits: 896
-    _castTime: 1
+    _castTime: 0.75
     _attackAlertTime: 0.25
-    _maxLineLength: 10
-  _playerCastMask:
-    serializedVersion: 2
-    m_Bits: 896
-  _attackRadius: 4
+    _maxLineLength: 8.5
+    _fadeSpeed: 2
