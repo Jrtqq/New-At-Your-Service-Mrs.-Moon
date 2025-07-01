@@ -44,7 +44,7 @@ _Всё ещё есть ещё недочёты, но код уже выгляд
 ---
 
 ## 📸 Скриншоты
-![](https://imgur.com/zVIfpag)
-![](https://imgur.com/qkWC5JM)
-![](https://imgur.com/nOnPKZK)
-![](https://imgur.com/WIz1Dqc)
+![](https://i.imgur.com/zVIfpag.png)
+![](https://i.imgur.com/qkWC5JM.png)
+![](https://i.imgur.com/nOnPKZK.png)
+![](https://i.imgur.com/WIz1Dqc.png)
