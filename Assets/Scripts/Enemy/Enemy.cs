@@ -19,17 +19,11 @@ namespace EnemyScripts
         private IState[] _states;
         private IState _currentState;
 
-        private Vector3 _startPosition;
-
-        private Player _player;
-
         public Action<Transform> Died;
         private bool _isDead = false;
 
         private void Awake()
         {
-            _startPosition = transform.position;
-
             _states = new IState[]{
                 new WalkingState(transform, _mover, _playerSearcher, _waypoints, this),
                 new ChasingState(_mover, transform, _playerSearcher, this),
