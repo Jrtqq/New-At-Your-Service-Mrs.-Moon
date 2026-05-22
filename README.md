@@ -1,6 +1,6 @@
 # README
 
-Game was made for **Newbies GameJam** in 2023 year. Later was refactored in 2025
+Game was made for **Newbies GameJam** in 2023 year. It was later refactored in 2025.
 
 ---
 UNITY, WINDOWS
