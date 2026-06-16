@@ -8,13 +8,16 @@ namespace EnemyScripts
     [Serializable]
     public class Attack
     {
-        [Header("Техническое")]
+        private const string PlayerTag = "Player";
+        private const string MirrorTag = "Mirror";
+
+        [Header("Dependencies")]
         [SerializeField] private MonoBehaviour _caster;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private Transform _attackPoint;
-        [SerializeField] private LayerMask _linecastMask;
 
-        [Header("Характеристики")]
+        [Header("Options")]
+        [SerializeField] private LayerMask _linecastMask;
         [SerializeField] private float _castTime = 1;
         [SerializeField] private float _attackAlertTime = 0.25f;
         [SerializeField] private float _maxLineLength = 5;
@@ -25,12 +28,11 @@ namespace EnemyScripts
         public float CastTime => _castTime;
         public float AttackAlertTime => _attackAlertTime;
 
-        [Header("Функциональные поля (для оптимизации)")]
         private float _remainingLength = 0;
 
         public void Charge()
         {
-            //партиклы
+            
         }
 
         public IEnumerator Cast(Vector3 target)
@@ -47,7 +49,6 @@ namespace EnemyScripts
             Vector3[] positions = GetPositions(target);
             _lineRenderer.positionCount = positions.Length;
             _lineRenderer.SetPositions(positions);
-            //_lineRenderer.Simplify(0.1f);
 
             _caster.StartCoroutine(FadeAttack());
         }
@@ -74,14 +75,14 @@ namespace EnemyScripts
 
                     break;
                 }
-                else if (hit.collider.CompareTag("Player"))
+                else if (hit.collider.CompareTag(PlayerTag))
                 {
                     positions.Add(hit.point);
                     _remainingLength = 0;
 
                     hit.collider.GetComponent<PlayerScripts.Player>().Die();
                 }
-                else if (hit.collider.CompareTag("Mirror"))
+                else if (hit.collider.CompareTag(MirrorTag))
                 {
                     positions.Add(hit.point);
 

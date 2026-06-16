@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1173acd260531440b9913488e0e0d91, type: 3}
+  m_Name: UIImages
+  m_EditorClassIdentifier: 
+  TransformActive: {fileID: -1151273365, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  TransformInactive: {fileID: -1491035245, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  DashActive: {fileID: 1429541642, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  DashInactive: {fileID: 799355109, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  VampireIcon: {fileID: -530829205, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  BatIcon: {fileID: 505114673, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  DeadBatIcon: {fileID: -1031162709, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}
+  DeadVampireIcon: {fileID: 1531053521, guid: 6e11be8c789dffd4eb728f128115c5bb, type: 3}

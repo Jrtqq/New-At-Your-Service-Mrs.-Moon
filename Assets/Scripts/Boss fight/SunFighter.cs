@@ -1,10 +1,16 @@
 using PlayerScripts;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SunFighter : MonoBehaviour
 {
+    private static readonly Color MaxCounterColor = new(0.6792453f, 0.05446779f, 0.05446779f, 1);
+
+    [SerializeField] private AudioSource _sunChompSound;
+    [SerializeField] private TMP_Text _textCounter;
+    [SerializeField] private GameObject _sunChomp;
     [SerializeField] private GameObject _winScreen;
     [SerializeField] private float _glowSpeed = 0.7f;
 
@@ -15,6 +21,8 @@ public class SunFighter : MonoBehaviour
     private float _needKills = 15;
 
     private float _sinValue;
+
+    private bool _neededKillScored = false;
 
     private void Awake()
     {
@@ -39,6 +47,11 @@ public class SunFighter : MonoBehaviour
                 _player.SlowDown();
                 _kills = Mathf.Clamp(_kills + 1, 0, _needKills);
                 _glowSpeed = Mathf.Clamp(_glowSpeed + 1, 0, _needKills);
+
+                _textCounter.text = $"{_kills}/{_needKills}";
+
+                if (_kills >= _needKills)
+                    OnNeededKills();
             }
             else
             {
@@ -47,15 +60,27 @@ public class SunFighter : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Sun"))
         {
-            if (_kills >= _needKills)
+            if (_neededKillScored && _player.IsDead == false)
             {
                 _player.IsDead = true;
                 _winScreen.SetActive(true);
+                _sunChompSound.Play();
             }
             else
             {
                 _player.Die();
             }
+        }
+    }
+
+    private void OnNeededKills()
+    {
+        if (_neededKillScored == false)
+        {
+            _sunChomp.SetActive(true);
+            _textCounter.color = MaxCounterColor;
+
+            _neededKillScored = true;
         }
     }
 }

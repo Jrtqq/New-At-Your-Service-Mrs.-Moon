@@ -102,7 +102,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.007920027, y: -0.010559984}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -113,7 +113,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.75}
+  m_Size: {x: 0.305359, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &3833325329701693747
 Rigidbody2D:
@@ -265,9 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f2a4babca233c41a2888303b1885e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dashCooldown: 1.5
-  _transformCooldown: 0.5
   _canTransform: 1
+  config: {fileID: 11400000, guid: 4e295eaa04b881c4dacf0db45a851a9d, type: 2}
   _collider: {fileID: 1793049668970404684}
   _mover:
     _vampireSpeed: 5
@@ -278,11 +277,16 @@ MonoBehaviour:
     _dashDeceleration: 100
     _rigidbody: {fileID: 3833325329701693747}
   _view:
+    _uiImages: {fileID: 11400000, guid: 0833e48391c33d141bfb44d9fc72098e, type: 2}
+    _config: {fileID: 11400000, guid: 4e295eaa04b881c4dacf0db45a851a9d, type: 2}
+    _dashCooldownImage: {fileID: 0}
+    _transformCooldownImage: {fileID: 0}
+    _characterIcon: {fileID: 0}
     _spriteRenderer: {fileID: 3695345704436578669}
     _animator: {fileID: 3695345704436578666}
   _sound:
-    _audioSource: {fileID: 4212625437584102757}
     _dash: {fileID: 8300000, guid: 2803a0418d4b1a143944eef748baabbe, type: 3}
     _transform: {fileID: 8300000, guid: 8e230a80e92fa1d40b459433c5d45255, type: 3}
     _death: {fileID: 8300000, guid: 8445b431c82d31c469fa4153e3ec58fb, type: 3}
+    _audioSource: {fileID: 4212625437584102757}
   IsDead: 0

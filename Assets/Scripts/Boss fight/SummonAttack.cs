@@ -13,9 +13,12 @@ public class SummonAttack : IBossAttack
 
     public void StartCast()
     {
+        int spawnPosIndex;
+
         for (int i = 0; i < _amount; i++)
         {
-            UnityEngine.Object.Instantiate(_prefab, _spawnPositions[UnityEngine.Random.Range(0, _spawnPositions.Length)].position, Quaternion.identity).Init(_player);
+            spawnPosIndex = UnityEngine.Random.Range(0, _spawnPositions.Length);
+            UnityEngine.Object.Instantiate(_prefab, _spawnPositions[spawnPosIndex].position, Quaternion.identity).Init(_player);
         }
     }
 }

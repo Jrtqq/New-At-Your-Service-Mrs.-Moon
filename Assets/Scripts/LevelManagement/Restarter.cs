@@ -1,6 +1,7 @@
 using PlayerScripts;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class Restarter : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private float _restartdelay = 0.5f;
     [SerializeField] private LevelCompleter _completer;
+
+    private List<Coroutine> _fadeCoroutines = new();
 
     public Action Loaded;
 
@@ -41,8 +44,8 @@ public class Restarter : MonoBehaviour
     {
         if (CurrentStage < _stages.Length - 1)
         {
-            StartCoroutine(
-                _animator.FadeIn(_stages[CurrentStage].transform, () => LoadStage()));
+            _fadeCoroutines.Add(StartCoroutine(
+                _animator.FadeIn(_stages[CurrentStage].transform, () => LoadStage())));
 
             CurrentStage++;
         }
@@ -55,11 +58,21 @@ public class Restarter : MonoBehaviour
     private void LoadStage()
     {
         _player.transform.position = Vector3.zero;
-        StartCoroutine(_animator.FadeOut(_stages[CurrentStage].transform, () => Loaded?.Invoke()));
+
+        _fadeCoroutines.Add(StartCoroutine(
+            _animator.FadeOut(_stages[CurrentStage].transform, () => Loaded?.Invoke())));
     }
 
     private void StartRestart()
     {
+        foreach (Coroutine coroutine in _fadeCoroutines)
+        {
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+        }
+
+        _fadeCoroutines.Clear();
+
         StartCoroutine(Restart());
     }
 

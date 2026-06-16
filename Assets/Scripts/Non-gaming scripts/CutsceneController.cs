@@ -11,7 +11,7 @@ public class CutsceneController : MonoBehaviour
     [SerializeField] private TMP_Text _text;
     [SerializeField] private CutsceneFader _screenAfterCutscene;
     [SerializeField] private IntroFader _introScreenAfterCutscene;
-    [SerializeField] private float _printingSpeed = 0.1f;
+    [SerializeField] private float _printingDelay = 0.1f;
     [SerializeField] private Sprite _special7LevelSprite;
     [SerializeField] private Image _background;
 
@@ -107,7 +107,7 @@ public class CutsceneController : MonoBehaviour
 
     private IEnumerator PrintText(string text)
     {
-        var delay = new WaitForSeconds(_printingSpeed);
+        var delay = new WaitForSeconds(_printingDelay);
 
         for (int i = 0; i < text.Length; i++)
         {

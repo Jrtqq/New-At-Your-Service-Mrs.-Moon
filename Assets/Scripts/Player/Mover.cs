@@ -9,14 +9,14 @@ namespace PlayerScripts
     [Serializable]
     public class Mover
     {
-        [Header("Характеристики")]
+        [Header("Options")]
         [SerializeField] private float _vampireSpeed;
         [SerializeField] private float _batSpeed;
         [SerializeField] private float _accelerationFactor;
         [SerializeField] private float _decelerationFactor;
         [SerializeField] private float _dashImpulse;
         [SerializeField] private float _dashDeceleration;
-        [Header("Техническое")]
+        [Header("Dependencies")]
         [SerializeField] private Rigidbody2D _rigidbody;
 
         private float _currentSpeed;
@@ -36,7 +36,7 @@ namespace PlayerScripts
         public void FixedUpdate(Vector3 direction)
         {
             _currentVelocity = Vector3.MoveTowards(
-                Vector3.ClampMagnitude(_currentVelocity + direction* _accelerationFactor * Time.fixedDeltaTime, _currentSpeed),
+                Vector3.ClampMagnitude(_currentVelocity + _accelerationFactor * Time.fixedDeltaTime * direction, _currentSpeed),
                 Vector3.zero,
                 _decelerationFactor * Time.fixedDeltaTime);
 

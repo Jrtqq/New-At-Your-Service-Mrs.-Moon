@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    [Header("Техническое")]
+    [Header("Depenpencies")]
     [SerializeField] private LaserAttack _laserAttack;
     [SerializeField] private SummonAttack _summonAttack;
 
-    [Header("Характеристики")]
+    [Header("Options")]
     [SerializeField] private float _cooldown = 5;
 
     private Queue<IBossAttack> _attacks = new();

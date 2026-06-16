@@ -6,35 +6,51 @@ using UnityEngine.UI;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField] private float _speed = 0.5f;
+    [SerializeField] private float _firstFadeDuration = 0.5f;
+    [SerializeField] private float _secondFadeDuration = 4;
 
     private Image _image;
 
-    private Color _step;
-    private Color _secondStep;
+    private Coroutine _coroutine;
 
     private void Awake()
     {
-        _step = new(0, 0, 0, Time.deltaTime * _speed);
-        _secondStep = new(Time.deltaTime * _speed, Time.deltaTime * _speed, Time.deltaTime * _speed, 0);
         _image = GetComponent<Image>();
     }
 
     private void OnEnable()
     {
-        StartCoroutine(Animate());
+        _coroutine = StartCoroutine(Animate());
+    }
+
+    private void OnDisable()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private IEnumerator Animate()
     {
-        while (_image.color.a < 1)
+        float t = 0;
+
+        while (t < _firstFadeDuration)
         {
-            _image.color += _step;
+            Color color = _image.color;
+
+            color.a = Mathf.Lerp(0, 1, t / _firstFadeDuration);
+            _image.color = color;
+
+            t += Time.deltaTime;
             yield return null;
         }
-        while (_image.color.r > 0)
+
+        t = 0;
+
+        while (t < _secondFadeDuration)
         {
-            _image.color -= _secondStep;
+            _image.color = Color.Lerp(Color.white, Color.black, t / _secondFadeDuration);
+
+            t += Time.deltaTime;
             yield return null;
         }
 

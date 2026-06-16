@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(AIPath))]
 public class BossEnemy : MonoBehaviour
 {
+    [SerializeField] private Chomp _chomp;
     [SerializeField] private GameObject _deadPrefab;
     [SerializeField] private LayerMask _playerCastMask;
     [SerializeField] private float _attackRadius = 4;
@@ -28,6 +29,8 @@ public class BossEnemy : MonoBehaviour
         _player = player;
         _transform = transform;
         _path.target = _player;
+
+        _chomp.SetPlayerManually(player);
     }
 
     private void Update()

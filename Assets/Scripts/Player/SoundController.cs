@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -8,11 +6,12 @@ namespace PlayerScripts
     [Serializable]
     public class SoundController
     {
-        [Header("Техническое")]
-        [SerializeField] private AudioSource _audioSource;
+        [Header("Sounds")]
         [SerializeField] private AudioClip _dash;
         [SerializeField] private AudioClip _transform;
         [SerializeField] private AudioClip _death;
+        [Header("Dependencies")]
+        [SerializeField] private AudioSource _audioSource;
 
         public void Init()
         {
@@ -20,8 +19,11 @@ namespace PlayerScripts
                 Debug.LogError("SpriteRenderer is null");
         }
 
-        public void OnMoveStart()
+        public void OnMoveStart(bool isBat)
         {
+            if (isBat)
+                return;
+
             _audioSource.loop = true;
 
             if (_audioSource.isPlaying == false)
@@ -35,8 +37,21 @@ namespace PlayerScripts
             _audioSource.loop = false;
         }
 
-        public void OnTransform()
+        public void OnTransform(bool isBat, bool isMoving)
         {
+            if (isBat)
+            {
+                _audioSource.loop = false;
+            }
+            else
+            {
+                if (isMoving)
+                {
+                    _audioSource.loop = true;
+                    _audioSource.Play();
+                }
+            }
+
             _audioSource.PlayOneShot(_transform);
         }
 

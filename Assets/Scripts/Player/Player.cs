@@ -3,17 +3,17 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Mover), typeof(SpriteRenderer))]
     public class Player : MonoBehaviour
     {
-        [Header("Характеристики")]
-        [SerializeField] private float _dashCooldown;
-        [SerializeField] private float _transformCooldown;
+        [Header("Options")]
         [SerializeField] private bool _canTransform = true;
-        [Header("Техническое")]
+        [Header("Dependencies")]
+        [SerializeField] private AbilitiesCooldownConfig config;
         [SerializeField] private BoxCollider2D _collider;
         [SerializeField] private Mover _mover;
         [SerializeField] private ViewController _view;
@@ -49,6 +49,8 @@ namespace PlayerScripts
 
             _controls.Main.Dash.performed += OnDash;
             _controls.Main.Transform.performed += OnTransform;
+
+            _controls.Main.Menu.performed += BackToMenu;
         }
 
         private void OnDisable()
@@ -59,6 +61,8 @@ namespace PlayerScripts
 
             _controls.Main.Dash.performed -= OnDash;
             _controls.Main.Transform.performed -= OnTransform;
+
+            _controls.Main.Menu.performed -= BackToMenu;
         }
 
         private void FixedUpdate()
@@ -102,7 +106,7 @@ namespace PlayerScripts
         private void OnMoveStart(InputAction.CallbackContext context)
         {
             _view.OnMoveStart();
-            _sound.OnMoveStart();
+            _sound.OnMoveStart(IsBat);
         }
 
         private void OnMove(InputAction.CallbackContext context)
@@ -124,12 +128,12 @@ namespace PlayerScripts
 
                 _mover.Transform(IsBat);
                 _view.OnTransform(IsBat);
-                _sound.OnTransform();
+                _sound.OnTransform(IsBat, Direction != Vector2.zero);
 
                 if (IsBat)
-                    _collider.size = new Vector2(_collider.size.x, 0.25f);
+                    _collider.size = new Vector2(_collider.size.x, 0.1f);
                 else
-                    _collider.size = new Vector2(_collider.size.x, 0.75f);
+                    _collider.size = new Vector2(_collider.size.x, 0.5f);
 
                 StartCoroutine(WaitForTransformCooldown());
             }
@@ -150,15 +154,22 @@ namespace PlayerScripts
         private IEnumerator WaitForTransformCooldown()
         {
             _canTransform = false;
-            yield return new WaitForSeconds(_transformCooldown);
+            yield return new WaitForSeconds(config.TransformCooldown);
             _canTransform = true;
         }
 
         private IEnumerator WaitForDashCooldown()
         {
             _canDash = false;
-            yield return new WaitForSeconds(_dashCooldown);
+            yield return new WaitForSeconds(config.DashCooldown);
             _canDash = true;
+        }
+
+        private void BackToMenu(InputAction.CallbackContext context)
+        {
+            Progress.Instance.LastLevel = 0;
+            LastLevelController.IsFirstLoad = true;
+            SceneManager.LoadScene(0);
         }
     }
 }

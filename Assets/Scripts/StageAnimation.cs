@@ -36,6 +36,7 @@ public class StageAnimation : MonoBehaviour
         }
 
         stage.position = _startPosition;
+        _fade.color = new Color(_fade.color.r, _fade.color.g, _fade.color.b, 0);
         callback?.Invoke();
     }
 
@@ -56,6 +57,7 @@ public class StageAnimation : MonoBehaviour
         }
 
         stage.gameObject.SetActive(false);
+        _fade.color = new Color(_fade.color.r, _fade.color.g, _fade.color.b, 1);
         callback?.Invoke();
     }
 }

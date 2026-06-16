@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class EnemyDead : MonoBehaviour
 {
-    private SpriteRenderer _renderer;
-
-    private void Awake()
-    {
-        _renderer = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField] private SpriteRenderer _chompRenderer;
+    [SerializeField] private SpriteRenderer _enemyRenderer;
 
     private void Update()
     {
-        if (_renderer.color.a > 0)
+        if (_enemyRenderer.color.a > 0)
         {
-            _renderer.color -= new Color(0, 0, 0, Time.deltaTime);
+            _enemyRenderer.color -= new Color(0, 0, 0, Time.deltaTime);
+            _chompRenderer.color -= new Color(0, 0, 0, Time.deltaTime);
         }
         else
         {
